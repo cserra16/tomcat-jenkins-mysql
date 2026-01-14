@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  # Jenkins CI/CD Server
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    user: root
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+    networks:
+      - cicd-network
+    restart: unless-stopped
+
+  # Tomcat 9 Application Server
+  tomcat:
+    image: tomcat:9-jdk11
+    container_name: tomcat
+    ports:
+      - "8888:8080"
+    volumes:
+      - tomcat_webapps:/usr/local/tomcat/webapps
+    environment:
+      - CATALINA_OPTS=-Xms512M -Xmx1024M
+    networks:
+      - cicd-network
+    restart: unless-stopped
+
+  # MariaDB Database
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=cicd_db
+      - MYSQL_USER=cicd_user
+      - MYSQL_PASSWORD=cicd_password
+    networks:
+      - cicd-network
+    restart: unless-stopped
+
+networks:
+  cicd-network:
+    driver: bridge
+
+volumes:
+  jenkins_home:
+  tomcat_webapps:
+  mariadb_data:

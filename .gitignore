@@ -1,0 +1,21 @@
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment files
+.env.local
+
+# Logs
+*.log
+logs/
+
+# Docker volumes (if mapped locally)
+data/
+volumes/
