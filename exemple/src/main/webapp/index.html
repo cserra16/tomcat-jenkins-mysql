@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CI/CD Test Application</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .test-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .info-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        
+        .info-box h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .info-box li {
+            padding: 5px 0;
+            color: #555;
+        }
+        
+        .info-box li::before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Aplicación de Prueba CI/CD</h1>
+        <p class="subtitle">Validación de Tomcat y MariaDB</p>
+        
+        <button class="test-button" onclick="window.location.href='test'">
+            Ejecutar Pruebas
+        </button>
+        
+        <div class="info-box">
+            <h3>📋 Información del Proyecto</h3>
+            <ul>
+                <li>Servidor: Apache Tomcat 9</li>
+                <li>Base de datos: MariaDB</li>
+                <li>Aplicación: Java Servlet</li>
+                <li>Build: Maven</li>
+            </ul>
+        </div>
+        
+        <div class="info-box" style="margin-top: 15px;">
+            <h3>🔍 Pruebas Incluidas</h3>
+            <ul>
+                <li>Verificación de despliegue en Tomcat</li>
+                <li>Conectividad con MariaDB</li>
+                <li>Creación de tablas de prueba</li>
+                <li>Operaciones CRUD básicas</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
