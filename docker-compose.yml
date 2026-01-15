@@ -27,9 +27,11 @@ services:
     volumes:
       - tomcat_webapps:/usr/local/tomcat/webapps
       - ./tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
-      - ./manager-context.xml:/usr/local/tomcat/webapps/manager/META-INF/context.xml
+      - ./manager-context.xml:/tmp/manager-context.xml
+      - ./init-tomcat.sh:/usr/local/bin/init-tomcat.sh
     environment:
       - CATALINA_OPTS=-Xms512M -Xmx1024M
+    command: [ "/bin/bash", "/usr/local/bin/init-tomcat.sh" ]
     networks:
       - cicd-network
     restart: unless-stopped
