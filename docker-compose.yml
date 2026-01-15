@@ -12,8 +12,8 @@ services:
     volumes:
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+      # environment:
+      # - JAVA_OPTS=-Djenkins.install.runSetupWizard=false  # Descomentado para habilitar el wizard inicial
     networks:
       - cicd-network
     restart: unless-stopped
