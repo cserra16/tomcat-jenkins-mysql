@@ -1,83 +1,83 @@
-# Entorno CI/CD con Docker para Estudiantes de Java
+# Entorn CI/CD amb Docker per a Estudiants de Java
 
-Este proyecto proporciona un entorno completo de CI/CD con Jenkins, Tomcat 9 y MariaDB para realizar pruebas de integración y despliegue continuo de aplicaciones Java.
+Aquest projecte proporciona un entorn complet de CI/CD amb Jenkins, Tomcat 9 i MariaDB per a realitzar proves d'integració i desplegament continu d'aplicacions Java.
 
-## 🚀 Servicios Incluidos
+## 🚀 Serveis Inclosos
 
-- **Jenkins** (puerto 8080): Servidor de integración continua
-- **Tomcat 9** (puerto 8888): Servidor de aplicaciones Java
-- **MariaDB** (puerto 3306): Base de datos relacional
+- **Jenkins** (port 8080): Servidor d'integració contínua
+- **Tomcat 9** (port 8888): Servidor d'aplicacions Java
+- **MariaDB** (port 3306): Base de dades relacional
 
-## 📋 Requisitos Previos
+## 📋 Requisits Previs
 
-- Docker Desktop instalado ([Descargar aquí](https://www.docker.com/products/docker-desktop))
-- Al menos 4GB de RAM disponible
-- Puertos 8080, 8888 y 3306 libres
+- Docker Desktop instal·lat ([Descarregar aquí](https://www.docker.com/products/docker-desktop))
+- Almenys 4GB de RAM disponible
+- Ports 8080, 8888 i 3306 lliures
 
-## 🔧 Instalación y Uso
+## 🔧 Instal·lació i Ús
 
-### Iniciar los Servicios
+### Iniciar els Serveis
 
 ```bash
 docker-compose up -d
 ```
 
-### Verificar el Estado
+### Verificar l'Estat
 
 ```bash
 docker-compose ps
 ```
 
-### Ver Logs
+### Veure Logs
 
 ```bash
-# Logs de todos los servicios
+# Logs de tots els serveis
 docker-compose logs
 
-# Logs de un servicio específico
+# Logs d'un servei específic
 docker-compose logs jenkins
 docker-compose logs tomcat
 docker-compose logs mariadb
 ```
 
-### Detener los Servicios
+### Aturar els Serveis
 
 ```bash
 docker-compose down
 ```
 
-### Detener y Eliminar Volúmenes (⚠️ Eliminará todos los datos)
+### Aturar i Eliminar Volums (⚠️ Eliminarà totes les dades)
 
 ```bash
 docker-compose down -v
 ```
 
-## 🔑 Credenciales por Defecto
+## 🔑 Credencials per Defecte
 
 ### Jenkins
 - **URL**: http://localhost:8080
-- **Usuario inicial**: Se genera automáticamente
-- **Contraseña inicial**: Obtener con el comando:
+- **Usuari inicial**: Es genera automàticament
+- **Contrasenya inicial**: Obtenir amb la comanda:
   ```bash
   docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
   ```
 
 ### Tomcat
 - **URL**: http://localhost:8888
-- **Manager**: Acceso no configurado por defecto (se puede configurar editando `tomcat-users.xml`)
+- **Manager**: Accés no configurat per defecte (es pot configurar editant `tomcat-users.xml`)
 
 ### MariaDB
-- **Host**: localhost (o `mariadb` desde otros contenedores)
-- **Puerto**: 3306
-- **Usuario root**: `root`
-- **Contraseña root**: `root`
-- **Base de datos**: `cicd_db`
-- **Usuario aplicación**: `cicd_user`
-- **Contraseña aplicación**: `cicd_password`
+- **Host**: localhost (o `mariadb` des d'altres contenidors)
+- **Port**: 3306
+- **Usuari root**: `root`
+- **Contrasenya root**: `root`
+- **Base de dades**: `cicd_db`
+- **Usuari aplicació**: `cicd_user`
+- **Contrasenya aplicació**: `cicd_password`
 
-## 🎓 Configuración para Estudiantes
+## 🎓 Configuració per a Estudiants
 
-### Conectar desde una Aplicación Java a MariaDB
+### Connectar des d'una Aplicació Java a MariaDB
 
 ```properties
 # application.properties (Spring Boot)
@@ -87,51 +87,51 @@ spring.datasource.password=cicd_password
 spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
 ```
 
-### Desplegar una Aplicación WAR en Tomcat
+### Desplegar una Aplicació WAR a Tomcat
 
-1. Copiar el archivo WAR al contenedor:
+1. Copiar el fitxer WAR al contenidor:
    ```bash
-   docker cp tu-aplicacion.war tomcat:/usr/local/tomcat/webapps/
+   docker cp la-teva-aplicacio.war tomcat:/usr/local/tomcat/webapps/
    ```
 
-2. La aplicación estará disponible en:
+2. L'aplicació estarà disponible a:
    ```
-   http://localhost:8888/tu-aplicacion
+   http://localhost:8888/la-teva-aplicacio
    ```
 
-### Configurar Jenkins para Despliegue Automático
+### Configurar Jenkins per a Desplegament Automàtic
 
-1. Acceder a Jenkins: http://localhost:8080
-2. Instalar plugins necesarios:
+1. Accedir a Jenkins: http://localhost:8080
+2. Instal·lar plugins necessaris:
    - Maven Integration
    - Deploy to container
    - Git
-3. Crear un nuevo Job de tipo "Maven project"
+3. Crear un nou Job de tipus "Maven project"
 4. Configurar el SCM (Git)
-5. En "Build", configurar los goals de Maven: `clean package`
-6. En "Post-build Actions", agregar "Deploy war/ear to a container":
+5. A "Build", configurar els goals de Maven: `clean package`
+6. A "Post-build Actions", afegir "Deploy war/ear to a container":
    - WAR/EAR files: `target/*.war`
-   - Context path: `/tu-app`
+   - Context path: `/la-teva-app`
    - Containers: Tomcat 9.x
    - Manager URL: `http://tomcat:8080`
 
-## 🔌 Conectar Servicios entre Contenedores
+## 🔌 Connectar Serveis entre Contenidors
 
-Los contenedores están en la misma red Docker (`cicd-network`), por lo que pueden comunicarse usando sus nombres de servicio:
+Els contenidors estan a la mateixa xarxa Docker (`cicd-network`), pel que poden comunicar-se usant els seus noms de servei:
 
-- Desde Jenkins a Tomcat: `http://tomcat:8080`
-- Desde Jenkins/Tomcat a MariaDB: `mariadb:3306`
+- Des de Jenkins a Tomcat: `http://tomcat:8080`
+- Des de Jenkins/Tomcat a MariaDB: `mariadb:3306`
 
-## 📦 Volúmenes Persistentes
+## 📦 Volums Persistents
 
-Los datos se almacenan en volúmenes Docker:
-- `jenkins_home`: Configuración y trabajos de Jenkins
-- `tomcat_webapps`: Aplicaciones desplegadas en Tomcat
-- `mariadb_data`: Datos de la base de datos
+Les dades s'emmagatzemen en volums Docker:
+- `jenkins_home`: Configuració i treballs de Jenkins
+- `tomcat_webapps`: Aplicacions desplegades a Tomcat
+- `mariadb_data`: Dades de la base de dades
 
-## 🛠️ Comandos Útiles
+## 🛠️ Comandes Útils
 
-### Acceder a la Consola de un Contenedor
+### Accedir a la Consola d'un Contenidor
 
 ```bash
 docker exec -it jenkins bash
@@ -139,13 +139,13 @@ docker exec -it tomcat bash
 docker exec -it mariadb bash
 ```
 
-### Conectar a MariaDB con Cliente MySQL
+### Connectar a MariaDB amb Client MySQL
 
 ```bash
 docker exec -it mariadb mysql -uroot -proot
 ```
 
-### Reiniciar un Servicio Específico
+### Reiniciar un Servei Específic
 
 ```bash
 docker-compose restart jenkins
@@ -153,10 +153,10 @@ docker-compose restart tomcat
 docker-compose restart mariadb
 ```
 
-## 🐛 Solución de Problemas
+## 🐛 Solució de Problemes
 
-### Puerto ya en uso
-Si algún puerto está ocupado, editar `docker-compose.yml` y cambiar el puerto externo (primer número del mapeo).
+### Port ja en ús
+Si algun port està ocupat, editar `docker-compose.yml` i canviar el port extern (primer número del mapatge).
 
 ### Jenkins no inicia
 Verificar logs:
@@ -164,18 +164,18 @@ Verificar logs:
 docker-compose logs jenkins
 ```
 
-### No se puede conectar a MariaDB
-Verificar que el contenedor esté corriendo:
+### No es pot connectar a MariaDB
+Verificar que el contenidor estigui corrent:
 ```bash
 docker-compose ps mariadb
 ```
 
-## 📚 Recursos Adicionales
+## 📚 Recursos Addicionals
 
-- [Documentación de Jenkins](https://www.jenkins.io/doc/)
-- [Documentación de Tomcat](https://tomcat.apache.org/tomcat-9.0-doc/)
-- [Documentación de MariaDB](https://mariadb.org/documentation/)
+- [Documentació de Jenkins](https://www.jenkins.io/doc/)
+- [Documentació de Tomcat](https://tomcat.apache.org/tomcat-9.0-doc/)
+- [Documentació de MariaDB](https://mariadb.org/documentation/)
 
-## 📄 Licencia
+## 📄 Llicència
 
-Este proyecto está diseñado para fines educativos.
+Aquest projecte està dissenyat per a fins educatius.

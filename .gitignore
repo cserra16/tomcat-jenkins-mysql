@@ -16,6 +16,9 @@ Thumbs.db
 *.log
 logs/
 
+# Maven build output
+target/
+
 # Docker volumes (if mapped locally)
 data/
 volumes/

@@ -1,87 +1,87 @@
-# Aplicación de Ejemplo CI/CD
+# Aplicació d'Exemple CI/CD
 
-Esta es una aplicación Java de ejemplo para validar el funcionamiento del entorno Docker con Tomcat y MariaDB.
+Aquesta és una aplicació Java d'exemple per validar el funcionament de l'entorn Docker amb Tomcat i MariaDB.
 
-## 📦 Estructura del Proyecto
+## 📦 Estructura del Projecte
 
 ```
 exemple/
-├── pom.xml                           # Configuración Maven
+├── pom.xml                           # Configuració Maven
 ├── src/
 │   └── main/
 │       ├── java/
 │       │   └── com/example/
-│       │       └── TestServlet.java  # Servlet de prueba
+│       │       └── TestServlet.java  # Servlet de prova
 │       └── webapp/
-│           ├── index.html            # Página principal
+│           ├── index.html            # Pàgina principal
 │           └── WEB-INF/
 ```
 
-## 🔨 Compilar el Proyecto
+## 🔨 Compilar el Projecte
 
-Desde el directorio `exemple`:
+Des del directori `exemple`:
 
 ```bash
 mvn clean package
 ```
 
-Esto generará el archivo WAR en `target/cicd-test.war`
+Això generarà el fitxer WAR a `target/cicd-test.war`
 
-## 🚀 Desplegar en Tomcat
+## 🚀 Desplegar a Tomcat
 
-### Opción 1: Copiar manualmente
+### Opció 1: Copiar manualment
 ```bash
 docker cp target/cicd-test.war tomcat:/usr/local/tomcat/webapps/
 ```
 
-### Opción 2: Desplegar desde Jenkins
-1. Configurar un Job Maven en Jenkins
-2. Apuntar al repositorio Git
+### Opció 2: Desplegar des de Jenkins
+1. Configurar un Job Maven a Jenkins
+2. Apuntar al repositori Git
 3. Goal de Maven: `clean package`
 4. Post-build: Deploy to Tomcat container
 
-## 🧪 Probar la Aplicación
+## 🧪 Provar l'Aplicació
 
-Una vez desplegada, acceder a:
-- **Página principal**: http://localhost:8888/cicd-test/
-- **Página de pruebas**: http://localhost:8888/cicd-test/test
+Un cop desplegada, accedir a:
+- **Pàgina principal**: http://localhost:8888/cicd-test/
+- **Pàgina de proves**: http://localhost:8888/cicd-test/test
 
-## ✅ Funcionalidades
+## ✅ Funcionalitats
 
-El servlet de prueba realiza las siguientes validaciones:
+El servlet de prova realitza les següents validacions:
 
-1. **Test de Tomcat**: Verifica que el servidor está funcionando
-2. **Conexión a Base de Datos**: Conecta con MariaDB
-3. **Operaciones CRUD**: Crea una tabla de prueba e inserta datos
-4. **Consultas**: Lee y muestra datos de la base de datos
+1. **Test de Tomcat**: Verifica que el servidor està funcionant
+2. **Connexió a Base de Dades**: Connecta amb MariaDB
+3. **Operacions CRUD**: Crea una taula de prova i insereix dades
+4. **Consultes**: Llegeix i mostra dades de la base de dades
 
-## 🔧 Configuración de Base de Datos
+## 🔧 Configuració de Base de Dades
 
-La aplicación se conecta a:
-- **Host**: `mariadb` (nombre del contenedor)
-- **Puerto**: 3306
-- **Base de datos**: `cicd_db`
-- **Usuario**: `cicd_user`
-- **Contraseña**: `cicd_password`
+L'aplicació es connecta a:
+- **Host**: `mariadb` (nom del contenidor)
+- **Port**: 3306
+- **Base de dades**: `cicd_db`
+- **Usuari**: `cicd_user`
+- **Contrasenya**: `cicd_password`
 
-## 📝 Notas para Estudiantes
+## 📝 Notes per a Estudiants
 
-- Este es un ejemplo básico de aplicación Java EE
-- Utiliza Servlets para manejar peticiones HTTP
-- Demuestra la conexión JDBC a MariaDB
-- Sirve como base para proyectos más complejos
-- Puede ser extendido con JSP, Spring, etc.
+- Aquest és un exemple bàsic d'aplicació Java EE
+- Utilitza Servlets per gestionar peticions HTTP
+- Demostra la connexió JDBC a MariaDB
+- Serveix com a base per a projectes més complexos
+- Pot ser estès amb JSP, Spring, etc.
 
-## 🐛 Solución de Problemas
+## 🐛 Solució de Problemes
 
-### Error de conexión a la base de datos
-- Verificar que el contenedor MariaDB está corriendo: `docker-compose ps`
-- Verificar las credenciales en el servlet
+### Error de connexió a la base de dades
+- Verificar que el contenidor MariaDB està corrent: `docker-compose ps`
+- Verificar les credencials al servlet
 
-### WAR no se despliega
+### WAR no es desplega
 - Revisar logs de Tomcat: `docker-compose logs tomcat`
-- Verificar que el WAR se copió correctamente
+- Verificar que el WAR es va copiar correctament
 
-### Compilación falla
-- Verificar que Maven está instalado
-- Ejecutar `mvn clean` antes de compilar
+### Compilació falla
+- Verificar que Maven està instal·lat
+- Executar `mvn clean` abans de compilar
