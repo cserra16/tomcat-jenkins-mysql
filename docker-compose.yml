@@ -26,6 +26,8 @@ services:
       - "8888:8080"
     volumes:
       - tomcat_webapps:/usr/local/tomcat/webapps
+      - ./tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
+      - ./manager-context.xml:/usr/local/tomcat/webapps/manager/META-INF/context.xml
     environment:
       - CATALINA_OPTS=-Xms512M -Xmx1024M
     networks:
